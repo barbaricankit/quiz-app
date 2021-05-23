@@ -6,9 +6,7 @@ import { useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { useQuiz } from "../../context/quiz-context";
 import { Quiz } from "../../database/data.type";
-import dotenv from "dotenv";
-dotenv.config();
-const url = process.env.URL;
+
 export type ParamType = {
   category: string;
 };
@@ -32,7 +30,7 @@ const PlayOptions = () => {
       (async () => {
         try {
           const { data } = await axios.get<Network_Data_Type>(
-            `${url}/quiz/${category}`
+            `https://cricquizapp-server.herokuapp.com/quiz/${category}`
           );
           if (data.success) {
             quizdispatch({

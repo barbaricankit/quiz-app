@@ -4,10 +4,8 @@ import {
   Server_Error_Type,
 } from "./data.type";
 import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
-const url = process.env.URL;
-console.log({ url });
+
+
 export const getQuizData = async (): Promise<
   GetQuizData_Type | Server_Error_Type | []
 > => {
@@ -18,7 +16,7 @@ export const getQuizData = async (): Promise<
         quiz,
         categories: { category },
       },
-    } = await axios.get<Network_Data_Type>(`${url}/quiz`);
+    } = await axios.get<Network_Data_Type>(`https://cricquizapp-server.herokuapp.com/quiz`);
     if (success) {
       return { quiz, category };
     } else {
