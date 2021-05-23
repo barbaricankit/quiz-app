@@ -6,13 +6,16 @@ import { QuizProvider } from "./context/quiz-context";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
+import { SocketProvider } from "./context/socket-context";
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
     <ChakraProvider theme={theme}>
       <Router>
         <QuizProvider>
-          <App />
+          <SocketProvider>
+            <App />
+          </SocketProvider>
         </QuizProvider>
       </Router>
     </ChakraProvider>

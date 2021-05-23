@@ -1,4 +1,3 @@
-import { quiz } from "../database/data";
 import { calculateScore } from "../utils/util_func";
 import { initialStateValue } from "./quiz-context";
 import { ACTION_TYPE } from "./quiz-context.type";
@@ -8,6 +7,23 @@ export const manageState = (
   action: ACTION_TYPE
 ) => {
   switch (action.type) {
+    case "SKIP_QUESTION":
+      return {
+        ...state,
+        currentQuesNumber: state.currentQuesNumber + 1,
+      };
+    case "SET_QUIZ":
+      return {
+        ...state,
+        quizzes: action.value.quiz,
+        categories: action.value.category,
+      };
+    case "SET_CURRENT_QUIZ":
+      return {
+        ...state,
+        currentQuiz: action.value.quiz,
+        category: action.value.category,
+      };
     case "NEXT_QUESTION":
       return {
         ...state,
@@ -26,14 +42,17 @@ export const manageState = (
       };
     case "RESET":
       return { ...state, score: 0, currentQuesNumber: 1 };
-    case "SET_GENRE":
+    case "SET_CATEGORY":
+      const quiz = state.quizzes!.filter(
+        (quiz) => quiz.category === action.value.category
+      );
       return {
         ...state,
-        category: action.value,
-        currentQuiz: quiz.find(({ quizname }) => quizname === action.value),
+        category: action.value.category,
+        currentQuiz: quiz,
       };
     case "SET_USERNAME":
-      return { ...state, username: action.value };
+      return { ...state, username: action.value.userName };
     default:
       return state;
   }

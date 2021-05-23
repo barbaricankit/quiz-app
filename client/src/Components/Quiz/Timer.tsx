@@ -11,7 +11,7 @@ const Timer = ({ timer, isOptionClicked }: TimerProp) => {
     quizstate: { currentQuesNumber, currentQuiz },
     quizdispatch,
   } = useQuiz();
-  const currentQuestion = currentQuiz!.questions[currentQuesNumber - 1];
+  const currentQuestion = currentQuiz![currentQuesNumber - 1];
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -34,7 +34,7 @@ const Timer = ({ timer, isOptionClicked }: TimerProp) => {
       clearInterval(id);
       clearTimeout(timerId);
     };
-  }, [currentQuestion, quizdispatch]);
+  }, [quizdispatch, currentQuestion]);
 
   return (
     <VStack>

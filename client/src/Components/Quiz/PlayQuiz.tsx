@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/button";
-import { Box, Flex, Grid, VStack } from "@chakra-ui/layout";
+import { useColorModeValue } from "@chakra-ui/color-mode";
+import { Box, Flex, Grid, Text, VStack } from "@chakra-ui/layout";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { useQuiz } from "../../context/quiz-context";
@@ -15,13 +16,23 @@ const PlayQuiz = () => {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [isOptionClicked, setIsOptionClicked] = useState(false);
   const history = useHistory();
-  const currentQuestion = currentQuiz!.questions[currentQuesNumber - 1];
+  const optionsbg = useColorModeValue(
+    "linear-gradient(to right, #61e294, #0575e6)",
+    "linear-gradient(to right, #005c97, #363795)"
+  );
+  const questionbg = useColorModeValue("#ECE7EE", "#262a31");
+  const skipButtonBg = useColorModeValue(
+    "linear-gradient(to right, #1c92d2, #f2fcfe)",
+    "linear-gradient(to right, #005c97, #363795)"
+  );
+
+  const currentQuestion = currentQuiz![currentQuesNumber - 1];
+
   useEffect(() => {
-    if (currentQuesNumber > currentQuiz!.questions.length) {
+    if (currentQuesNumber > currentQuiz!.length) {
       history.push("/finalscore");
     }
     return () => {
-      console.log("useeffect caled");
       setSelectedOption(null);
       setIsOptionClicked(false);
     };
@@ -29,17 +40,16 @@ const PlayQuiz = () => {
   const showCorrectAnswer = (option: Option) => {
     if (selectedOption) {
       if (selectedOption.optionvalue === option.optionvalue) {
-        console.log({ selectedOption });
         if (selectedOption.isCorrect) {
-          return "green.400";
+          return "green.500";
         } else {
-          console.log({ selectedOption });
           return "tomato";
         }
       } else if (option.isCorrect) {
         return "green.500";
       }
     }
+    return "";
   };
   const handleNextQuestion = (option: Option) => {
     setTimeout(() => {
@@ -57,23 +67,45 @@ const PlayQuiz = () => {
   return (
     <>
       {currentQuestion && (
-        <VStack>
-          <Grid minH='100vh' p={3}>
+        <VStack w='100%'>
+          <Grid minH='100vh' p={3} w='100%'>
             <VStack>
               <Flex justify='space-between'>
                 <Timer timer={10} isOptionClicked={isOptionClicked} />
                 <CurrentScore />
               </Flex>
             </VStack>
-            <Box boxShadow='dark-lg'>
-              <div>Question {currentQuesNumber}</div>
-              <div>{currentQuestion.question}</div>
-              <Flex direction='column'>
-                {currentQuestion.options.map((option: Option, index) => (
+            <Box
+              boxShadow='dark-lg'
+              bg={questionbg}
+              borderRadius='2xl'
+              margin={"auto"}
+              p={1}
+              w={["100%", "80%"]}>
+              <Text fontWeight='bold' m={5} color='gray.500'>
+                Question {currentQuesNumber}{" "}
+                {currentQuestion.bonuspoints && ": Bonus Question"}
+              </Text>
+              <Text fontStyle='italic' fontWeight='semibold' m={5}>
+                {currentQuestion?.question}
+              </Text>
+              <Flex
+                direction={["column", "row"]}
+                justifyContent='space-around'
+                wrap='wrap'
+                mt={4}
+                alignItems='center'>
+                {currentQuestion?.options.map((option: Option, index) => (
                   <Button
+                    w='9rem'
+                    p={3}
+                    whiteSpace='normal'
+                    bgGradient={optionsbg}
                     mb={2}
-                    key={index}
+                    key={option.optionvalue}
+                    fontWeight='bold'
                     color={isOptionClicked ? showCorrectAnswer(option) : ""}
+                    variant='solid'
                     onClick={() => {
                       setIsOptionClicked(true);
                       setSelectedOption(option);
@@ -83,7 +115,20 @@ const PlayQuiz = () => {
                   </Button>
                 ))}
               </Flex>
-              <button onClick={() => {}}>Skip Question</button>
+              <VStack>
+                <Button
+                  key={currentQuesNumber}
+                  bgGradient={skipButtonBg}
+                  onClick={() =>
+                    quizdispatch({
+                      type: "SKIP_QUESTION",
+                    })
+                  }
+                  m={5}
+                  alignSelf='flex-end'>
+                  Skip Question
+                </Button>
+              </VStack>
             </Box>
           </Grid>
         </VStack>
