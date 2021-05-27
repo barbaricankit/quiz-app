@@ -1,4 +1,5 @@
 This app was build with React Typescript and for UI Chakra-UI has been used
+[title](https://cricoquiz.netlify.app/)
 
 ## Welcome to CricoQuiz
 
