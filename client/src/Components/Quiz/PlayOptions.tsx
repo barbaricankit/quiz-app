@@ -4,24 +4,24 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useQuiz } from "../../context/quiz-context";
-import { Quiz } from "../../database/data.type";
+import { Quiz_Type } from "../../database/data.type";
 import PlayAlone from "./Buttons/PlayAlone";
 import PlayWithFriends from "./Buttons/PlayWithFriends";
 import dotenv from "dotenv";
 dotenv.config();
 const url = process.env.REACT_APP_URL;
-export type ParamType = {
+export type Param_Type = {
   category: string;
 };
-type Network_Data_Type = {
+export type Network_Data_Type = {
   success: boolean;
-  quiz: Quiz[];
+  quiz: Quiz_Type[];
 };
 const PlayOptions = () => {
-  const { category } = useParams<ParamType>();
+  const { category } = useParams<Param_Type>();
   const {
-    quizstate: { currentQuiz },
-    quizdispatch,
+    quizState: { currentQuiz },
+    quizDispatch,
   } = useQuiz();
 
   const bg: string = useColorModeValue(
@@ -36,9 +36,9 @@ const PlayOptions = () => {
             `${url}quiz/${category}`
           );
           if (data.success) {
-            quizdispatch({
+            quizDispatch({
               type: "SET_CURRENT_QUIZ",
-              value: { quiz: data.quiz, category },
+              payload: { quiz: data.quiz, category },
             });
           }
         } catch (error) {
@@ -46,7 +46,7 @@ const PlayOptions = () => {
         }
       })();
     }
-  }, [category, quizdispatch, currentQuiz]);
+  }, [category, quizDispatch, currentQuiz]);
   return (
     <Flex justifyContent='space-evenly' w='100%'>
       <PlayAlone bg={bg} />

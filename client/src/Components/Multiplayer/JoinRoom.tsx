@@ -5,7 +5,7 @@ import { Button } from "@chakra-ui/button";
 import { useHistory, useParams } from "react-router";
 import { useQuiz } from "../../context/quiz-context";
 import { useSocket } from "../../context/socket-context";
-import { ParamType } from "../Quiz/PlayOptions";
+import { Param_Type } from "../Quiz/PlayOptions";
 
 type Room_Info_Type = {
   success: boolean;
@@ -14,9 +14,9 @@ type Room_Info_Type = {
 const JoinRoom = () => {
   const [roomInfo, setRoomInfo] = useState<Room_Info_Type | null>(null);
 
-  const { category } = useParams<ParamType>();
+  const { category } = useParams<Param_Type>();
   const {
-    quizstate: { username },
+    quizState: { username },
   } = useQuiz();
   const history = useHistory();
   const { websocket, setRoomId, roomId } = useSocket();

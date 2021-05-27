@@ -2,17 +2,16 @@ import { VStack } from "@chakra-ui/layout";
 import { v4 } from "uuid";
 import { Button } from "@chakra-ui/button";
 import { useHistory, useParams } from "react-router";
-
 import { useQuiz } from "../../context/quiz-context";
 import { useSocket } from "../../context/socket-context";
-import { ParamType } from "../Quiz/PlayOptions";
+import { Param_Type } from "../Quiz/PlayOptions";
 
 const CreateRoom = () => {
   const { websocket, setRoomId } = useSocket();
   const {
-    quizstate: { username },
+    quizState: { username },
   } = useQuiz();
-  const { category } = useParams<ParamType>();
+  const { category } = useParams<Param_Type>();
   const history = useHistory();
   const handleCreateRoom = () => {
     const id = v4();

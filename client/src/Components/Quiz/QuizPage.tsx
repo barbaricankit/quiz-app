@@ -14,8 +14,8 @@ export type Location_Type = {
 };
 const QuizPage = () => {
   const {
-    quizstate: { currentQuesNumber, currentQuiz, score },
-    quizdispatch,
+    quizState: { currentQuesNumber, currentQuiz, score },
+    quizDispatch,
   } = useQuiz();
   const { websocket, userId, roomId } = useSocket();
   const history = useHistory();
@@ -41,12 +41,12 @@ const QuizPage = () => {
       }
     }
     return () => {
-      quizdispatch({
+      quizDispatch({
         type: "OPTION_CLICKED",
         payload: { value: false, option: null },
       });
     };
-  }, [currentQuesNumber, history, currentQuiz, quizdispatch, player]);
+  }, [currentQuesNumber, history, currentQuiz, quizDispatch, player]);
 
   return (
     <>

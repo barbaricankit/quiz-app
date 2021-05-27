@@ -1,23 +1,23 @@
-export type Quiz = {
+export type Quiz_Type = {
   category: string;
   points?: number;
   bonuspoints?: number;
   negativepoints?: number;
   question: string;
-  options: Option[];
+  options: Option_Type[];
 };
 export type Network_Data_Type = {
   success?: boolean;
   categories: { category: string[] };
-  quiz: Quiz[];
+  quiz: Quiz_Type[];
 };
-export type Option = {
+export type Option_Type = {
   optionvalue: string;
   isCorrect: boolean;
 };
-export type GetQuizData_Type = {
+export type Get_Quiz_Data_Type = {
   category: string[];
-  quiz: Quiz[];
+  quiz: Quiz_Type[];
 };
 export type Server_Error_Type = {
   errorCode: number;

@@ -3,7 +3,7 @@ import { useQuiz } from "../../context/quiz-context";
 
 const CurrentScore = () => {
   const {
-    quizstate: { score },
+    quizState: { score },
   } = useQuiz();
   return (
     <>

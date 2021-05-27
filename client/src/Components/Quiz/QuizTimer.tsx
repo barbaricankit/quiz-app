@@ -1,15 +1,15 @@
 import { Text, VStack } from "@chakra-ui/layout";
 import { useEffect, useState } from "react";
 import { useQuiz } from "../../context/quiz-context";
-type TimerProp = {
+export type Timer_Prop_Type = {
   timer: number;
 };
-const QuizTimer = ({ timer }: TimerProp) => {
+const QuizTimer = ({ timer }: Timer_Prop_Type) => {
   const [time, setTime] = useState<number>(timer);
 
   const {
-    quizstate: { currentQuesNumber, currentQuiz, selectedOption },
-    quizdispatch,
+    quizState: { currentQuesNumber, currentQuiz, selectedOption },
+    quizDispatch,
   } = useQuiz();
   const currentQuestion = currentQuiz![currentQuesNumber - 1];
 
@@ -28,15 +28,15 @@ const QuizTimer = ({ timer }: TimerProp) => {
   }, [currentQuesNumber]);
   useEffect(() => {
     const timerID1 = setTimeout(() => {
-      quizdispatch({
+      quizDispatch({
         type: "SET_OPTION_COLOR",
         payload: { value: "green.500" },
       });
     }, 10000);
     const timerID2 = setTimeout(() => {
-      quizdispatch({
+      quizDispatch({
         type: "NEXT_QUESTION",
-        value: {
+        payload: {
           question: currentQuestion,
           selectedOption: selectedOption,
         },
@@ -46,7 +46,7 @@ const QuizTimer = ({ timer }: TimerProp) => {
       clearTimeout(timerID1);
       clearTimeout(timerID2);
     };
-  }, [quizdispatch, currentQuestion, selectedOption]);
+  }, [quizDispatch, currentQuestion, selectedOption]);
 
   return (
     <VStack>

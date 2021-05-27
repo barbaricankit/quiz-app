@@ -1,8 +1,12 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { getQuizData } from "../database/data";
-import { QuizContType, QuizState } from "./quiz-context.type";
+import {
+  Quiz_Context_Type,
+  Quiz_State_Type,
+  Quiz_Provider_Prop_Type,
+} from "./quiz-context.type";
 import { manageState } from "./quiz-reducer";
-export const initialStateValue: QuizState = {
+export const initialStateValue: Quiz_State_Type = {
   score: 0,
   currentQuesNumber: 1,
   username: "",
@@ -12,7 +16,7 @@ export const initialStateValue: QuizState = {
 };
 export const QuizContext = createContext({});
 
-export const QuizProvider = ({ children }: any) => {
+export const QuizProvider = ({ children }: Quiz_Provider_Prop_Type) => {
   const [state, dispatch] = useReducer(manageState, initialStateValue);
 
   useEffect(() => {
@@ -21,20 +25,20 @@ export const QuizProvider = ({ children }: any) => {
       if ("quiz" in data) {
         dispatch({
           type: "SET_QUIZ",
-          value: { quiz: data.quiz, category: data.category },
+          payload: { quiz: data.quiz, category: data.category },
         });
       }
     })();
     const localData = localStorage?.getItem("quizUser");
     const { username } = localData ? JSON.parse(localData) : "";
-    dispatch({ type: "SET_USERNAME", value: { userName: username } });
+    dispatch({ type: "SET_USERNAME", payload: { userName: username } });
   }, []);
   return (
-    <QuizContext.Provider value={{ quizstate: state, quizdispatch: dispatch }}>
+    <QuizContext.Provider value={{ quizState: state, quizDispatch: dispatch }}>
       {children}
     </QuizContext.Provider>
   );
 };
 
-export const useQuiz = (): QuizContType =>
-  useContext(QuizContext) as QuizContType;
+export const useQuiz = (): Quiz_Context_Type =>
+  useContext(QuizContext) as Quiz_Context_Type;

@@ -7,8 +7,8 @@ import { useQuiz } from "../../context/quiz-context";
 
 const Category = () => {
   const {
-    quizdispatch,
-    quizstate: { categories },
+    quizDispatch,
+    quizState: { categories },
   } = useQuiz();
   const bg = useColorModeValue(
     "linear-gradient(to right, #61e294, #0575e6)",
@@ -24,7 +24,7 @@ const Category = () => {
             mb={2}
             w='10rem'
             onClick={() =>
-              quizdispatch({ type: "SET_CATEGORY", value: { category } })
+              quizDispatch({ type: "SET_CATEGORY", payload: { category } })
             }>
             {category}
           </Button>

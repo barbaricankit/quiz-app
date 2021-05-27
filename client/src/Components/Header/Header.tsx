@@ -8,7 +8,7 @@ const Header = () => {
     "linear-gradient(to top, #1f2f3a, #201d40);"
   );
   return (
-    <Stack p={3} h='3.5rem' bgGradient={bg} className=''>
+    <Stack p={3} h='3.5rem' bgGradient={bg}>
       <Flex justifyContent='space-between'>
         <Text
           fontFamily="'Yanone Kaffeesatz', sans-serif;"

@@ -1,13 +1,13 @@
 import { Text } from "@chakra-ui/layout";
 import { useQuiz } from "../../context/quiz-context";
-import { Quiz } from "../../database/data.type";
+import { Quiz_Type } from "../../database/data.type";
 
-type Questions_Prop = {
-  currentQuestion: Quiz;
+type Questions_Prop_Type = {
+  currentQuestion: Quiz_Type;
 };
-const Questions = ({ currentQuestion }: Questions_Prop) => {
+const Questions = ({ currentQuestion }: Questions_Prop_Type) => {
   const {
-    quizstate: { currentQuesNumber },
+    quizState: { currentQuesNumber },
   } = useQuiz();
   return (
     <>

@@ -1,43 +1,47 @@
 import { Dispatch } from "react";
-import { Option, Quiz } from "../database/data.type";
+import { Option_Type, Quiz_Type } from "../database/data.type";
 
-export type VALUE_TYPE = {
-  question: Quiz;
-  selectedOption: Option | null;
+export type Quiz_Provider_Prop_Type = {
+  children: React.ReactNode;
 };
-export type ACTION_TYPE =
+export type Value_Type = {
+  question: Quiz_Type;
+  selectedOption: Option_Type | null;
+};
+export type Action_Type =
   | {
       type: "NEXT_QUESTION";
-      value: VALUE_TYPE;
+      payload: Value_Type;
     }
   | { type: "WRONG_ANSWER" }
   | { type: "RESET" }
-  | { type: "SET_CATEGORY"; value: { category: string } }
-  | { type: "SET_USERNAME"; value: { userName: string } }
+  | { type: "SET_CATEGORY"; payload: { category: string } }
+  | { type: "SET_USERNAME"; payload: { userName: string } }
   | { type: "SKIP_QUESTION" }
-  | { type: "SET_QUIZ"; value: { quiz: Quiz[]; category: string[] } }
-  | { type: "SET_CURRENT_QUIZ"; value: { quiz: Quiz[]; category: string } }
-  | { type: "IS_OPTION_CLICKED"; payload: { value: boolean } }
-  | { type: "SET_SELECTED_OPTION"; payload: { value: Option | null } }
+  | { type: "SET_QUIZ"; payload: { quiz: Quiz_Type[]; category: string[] } }
+  | {
+      type: "SET_CURRENT_QUIZ";
+      payload: { quiz: Quiz_Type[]; category: string };
+    }
   | {
       type: "OPTION_CLICKED";
-      payload: { value: boolean; option: Option | null };
+      payload: { value: boolean; option: Option_Type | null };
     }
   | { type: "SET_OPTION_COLOR"; payload: { value: string } };
 
-export type QuizState = {
+export type Quiz_State_Type = {
   score: number;
   category?: string;
   currentQuesNumber: number;
-  currentQuiz?: Quiz[];
+  currentQuiz?: Quiz_Type[];
   username: string;
-  quizzes?: Quiz[];
+  quizzes?: Quiz_Type[];
   categories?: string[];
-  selectedOption: Option | null;
+  selectedOption: Option_Type | null;
   isOptionClicked: boolean;
   optionsColor: string;
 };
-export type QuizContType = {
-  quizstate: QuizState;
-  quizdispatch: Dispatch<ACTION_TYPE>;
+export type Quiz_Context_Type = {
+  quizState: Quiz_State_Type;
+  quizDispatch: Dispatch<Action_Type>;
 };

@@ -1,36 +1,30 @@
 import { calculateScore } from "../utils/util_func";
 import { initialStateValue } from "./quiz-context";
-import { ACTION_TYPE } from "./quiz-context.type";
+import { Action_Type } from "./quiz-context.type";
 
 export const manageState = (
   state: typeof initialStateValue,
-  action: ACTION_TYPE
+  action: Action_Type
 ) => {
   switch (action.type) {
     case "SKIP_QUESTION":
       return {
         ...state,
         currentQuesNumber: state.currentQuesNumber + 1,
+        optionsColor: "",
       };
     case "SET_QUIZ":
       return {
         ...state,
-        quizzes: action.value.quiz,
-        categories: action.value.category,
+        quizzes: action.payload.quiz,
+        categories: action.payload.category,
       };
     case "SET_CURRENT_QUIZ":
       return {
         ...state,
-        currentQuiz: action.value.quiz,
-        category: action.value.category,
+        currentQuiz: action.payload.quiz,
+        category: action.payload.category,
       };
-    case "IS_OPTION_CLICKED":
-      return {
-        ...state,
-        isOptionClicked: action.payload.value,
-      };
-    case "SET_SELECTED_OPTION":
-      return { ...state, selectedOption: action.payload.value };
     case "OPTION_CLICKED":
       return {
         ...state,
@@ -47,8 +41,8 @@ export const manageState = (
         ...state,
         score: calculateScore(
           state.score,
-          action.value.question,
-          action.value.selectedOption
+          action.payload.question,
+          action.payload.selectedOption
         ),
         currentQuesNumber: state.currentQuesNumber + 1,
         optionsColor: "",
@@ -63,15 +57,15 @@ export const manageState = (
       return { ...state, score: 0, currentQuesNumber: 1 };
     case "SET_CATEGORY":
       const quiz = state.quizzes!.filter(
-        (quiz) => quiz.category === action.value.category
+        (quiz) => quiz.category === action.payload.category
       );
       return {
         ...state,
-        category: action.value.category,
+        category: action.payload.category,
         currentQuiz: quiz,
       };
     case "SET_USERNAME":
-      return { ...state, username: action.value.userName };
+      return { ...state, username: action.payload.userName };
     default:
       return state;
   }

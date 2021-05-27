@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { useSocket } from "../../context/socket-context";
 import { Button } from "@chakra-ui/button";
-import { ParamType } from "../Quiz/PlayOptions";
+import { Param_Type } from "../Quiz/PlayOptions";
 
 type Member_Type = {
   users: User_Type[];
@@ -20,7 +20,7 @@ type Host_Type = {
   hostName: string;
 };
 const WaitingRoom = () => {
-  const { category } = useParams<ParamType>();
+  const { category } = useParams<Param_Type>();
   const history = useHistory();
   const [members, setMembers] = useState<Array<User_Type>>([]);
   const [host, setHost] = useState<Host_Type>();

@@ -2,25 +2,25 @@ import { Button } from "@chakra-ui/button";
 import { useColorModeValue } from "@chakra-ui/color-mode";
 import { Flex } from "@chakra-ui/layout";
 import { useQuiz } from "../../context/quiz-context";
-import { Option, Quiz } from "../../database/data.type";
-type Options_Prop = {
-  currentQuestion: Quiz;
+import { Option_Type, Quiz_Type } from "../../database/data.type";
+type Options_Prop_Type = {
+  currentQuestion: Quiz_Type;
 };
-const QuizOptions = ({ currentQuestion }: Options_Prop) => {
+const QuizOptions = ({ currentQuestion }: Options_Prop_Type) => {
   const {
-    quizstate: {
+    quizState: {
       currentQuesNumber,
       isOptionClicked,
       selectedOption,
       optionsColor,
     },
-    quizdispatch,
+    quizDispatch,
   } = useQuiz();
   const optionsbg = useColorModeValue(
     "linear-gradient(to right, #61e294, #0575e6)",
     "linear-gradient(to right, #005c97, #363795)"
   );
-  const showCorrectAnswer = (option: Option) => {
+  const showCorrectAnswer = (option: Option_Type) => {
     if (selectedOption) {
       if (selectedOption.optionvalue === option.optionvalue) {
         if (selectedOption.isCorrect) {
@@ -35,20 +35,21 @@ const QuizOptions = ({ currentQuestion }: Options_Prop) => {
       return "green.500";
     }
   };
-  const handleNextQuestion = (option: Option) => {
-    quizdispatch({
+  const handleNextQuestion = (option: Option_Type) => {
+    quizDispatch({
       type: "OPTION_CLICKED",
       payload: { value: true, option },
     });
-    setTimeout(() => {
-      quizdispatch({
+    const id = setTimeout(() => {
+      quizDispatch({
         type: "NEXT_QUESTION",
-        value: {
+        payload: {
           question: currentQuestion,
           selectedOption: option,
         },
       });
     }, 2000);
+    return () => clearTimeout(id);
   };
   return (
     <>
@@ -58,7 +59,7 @@ const QuizOptions = ({ currentQuestion }: Options_Prop) => {
         wrap='wrap'
         mt={4}
         alignItems='center'>
-        {currentQuestion?.options.map((option: Option, index) => (
+        {currentQuestion?.options.map((option: Option_Type, index) => (
           <Button
             w='9rem'
             p={3}

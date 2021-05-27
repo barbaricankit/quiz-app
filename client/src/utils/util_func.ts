@@ -1,9 +1,9 @@
-import { Option, Quiz } from "../database/data.type";
+import { Option_Type, Quiz_Type } from "../database/data.type";
 
 export const calculateScore = (
   currentScore: number,
-  question: Quiz,
-  selectedOption: Option | null
+  question: Quiz_Type,
+  selectedOption: Option_Type | null
 ) => {
   if (selectedOption) {
     if (isCorrectAnswer(question, selectedOption.optionvalue)) {
@@ -18,7 +18,10 @@ export const calculateScore = (
   }
   return currentScore;
 };
-export const isCorrectAnswer = (question: Quiz, selectedOption: string) => {
+export const isCorrectAnswer = (
+  question: Quiz_Type,
+  selectedOption: string
+) => {
   const option = question.options.find(
     (option) => option.optionvalue === selectedOption
   );

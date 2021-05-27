@@ -1,5 +1,5 @@
 import {
-  GetQuizData_Type,
+  Get_Quiz_Data_Type,
   Network_Data_Type,
   Server_Error_Type,
 } from "./data.type";
@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const getQuizData = async (): Promise<
-  GetQuizData_Type | Server_Error_Type | []
+  Get_Quiz_Data_Type | Server_Error_Type | []
 > => {
   const url = process.env.REACT_APP_URL as string;
   try {

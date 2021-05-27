@@ -1,14 +1,14 @@
 import { Button } from "@chakra-ui/button";
 import { useHistory } from "react-router";
 import { useQuiz } from "../../../context/quiz-context";
-type PlayAgainProp = {
+type Play_Again_Prop_Type = {
   bg: string;
 };
 
-const PlayAgain = ({ bg }: PlayAgainProp) => {
+const PlayAgain = ({ bg }: Play_Again_Prop_Type) => {
   const {
-    quizstate: { category },
-    quizdispatch,
+    quizState: { category },
+    quizDispatch,
   } = useQuiz();
   const history = useHistory();
   return (
@@ -16,7 +16,7 @@ const PlayAgain = ({ bg }: PlayAgainProp) => {
       bgGradient={bg}
       mb={2}
       onClick={() => {
-        quizdispatch({ type: "RESET" });
+        quizDispatch({ type: "RESET" });
         history.push(`/${category}/rules`);
       }}>
       Play Again

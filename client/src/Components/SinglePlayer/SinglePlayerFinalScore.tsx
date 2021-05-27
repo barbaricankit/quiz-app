@@ -5,7 +5,7 @@ import AnotherCategory from "../Quiz/Buttons/AnotherCategory";
 import PlayAgain from "../Quiz/Buttons/PlayAgain";
 const SinglePlayerFinalScore = () => {
   const {
-    quizstate: { score },
+    quizState: { score },
   } = useQuiz();
 
   const bg: string = useColorModeValue(

@@ -5,20 +5,20 @@ import { useQuiz } from "../../../context/quiz-context";
 
 const SkipQuestionButton = () => {
   const {
-    quizstate: { currentQuesNumber },
-    quizdispatch,
+    quizState: { currentQuesNumber },
+    quizDispatch,
   } = useQuiz();
   const skipButtonBg = useColorModeValue(
     "linear-gradient(to right, #1c92d2, #f2fcfe)",
     "linear-gradient(to right, #005c97, #363795)"
   );
   const skipQuestion = () => {
-    quizdispatch({
+    quizDispatch({
       type: "SET_OPTION_COLOR",
       payload: { value: "green.500" },
     });
     setTimeout(() => {
-      quizdispatch({
+      quizDispatch({
         type: "SKIP_QUESTION",
       });
     }, 2000);

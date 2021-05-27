@@ -21,7 +21,7 @@ type User_Type = {
 };
 const MultiplayerFinalScore = () => {
   const {
-    quizstate: { score },
+    quizState: { score },
   } = useQuiz();
 
   const { websocket, roomId, userId } = useSocket();
