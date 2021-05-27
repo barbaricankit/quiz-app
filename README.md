@@ -1,7 +1,6 @@
 This app was build with React Typescript and for UI Chakra-UI has been used
-[title](https://cricoquiz.netlify.app/)
 
-## Welcome to CricoQuiz
+## Welcome to [CricoQuiz](https://cricoquiz.netlify.app/)
 
 This quiz app contains quizzes for different category of Cricket
 
