@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { useQuiz } from "../../context/quiz-context";
 type TimerProp = {
   timer: number;
-  isOptionClicked: boolean;
 };
-const Timer = ({ timer, isOptionClicked }: TimerProp) => {
+const QuizTimer = ({ timer }: TimerProp) => {
   const [time, setTime] = useState<number>(timer);
+
   const {
-    quizstate: { currentQuesNumber, currentQuiz },
+    quizstate: { currentQuesNumber, currentQuiz, selectedOption },
     quizdispatch,
   } = useQuiz();
   const currentQuestion = currentQuiz![currentQuesNumber - 1];
@@ -17,24 +17,36 @@ const Timer = ({ timer, isOptionClicked }: TimerProp) => {
     const id = setInterval(() => {
       setTime((time) => (time - 1 > 0 ? time - 1 : 0));
     }, 1000);
-    const timerId = setTimeout(() => {
+    const id2 = setTimeout(() => {
       clearInterval(id);
+    }, 12000);
+    return () => {
+      setTime(10);
+      clearTimeout(id2);
+      clearInterval(id);
+    };
+  }, [currentQuesNumber]);
+  useEffect(() => {
+    const timerID1 = setTimeout(() => {
+      quizdispatch({
+        type: "SET_OPTION_COLOR",
+        payload: { value: "green.500" },
+      });
+    }, 10000);
+    const timerID2 = setTimeout(() => {
       quizdispatch({
         type: "NEXT_QUESTION",
         value: {
           question: currentQuestion,
-          selectedOption: null,
+          selectedOption: selectedOption,
         },
       });
-      setTime(10);
-    }, 10000);
-
+    }, 12000);
     return () => {
-      setTime(10);
-      clearInterval(id);
-      clearTimeout(timerId);
+      clearTimeout(timerID1);
+      clearTimeout(timerID2);
     };
-  }, [quizdispatch, currentQuestion]);
+  }, [quizdispatch, currentQuestion, selectedOption]);
 
   return (
     <VStack>
@@ -44,4 +56,4 @@ const Timer = ({ timer, isOptionClicked }: TimerProp) => {
   );
 };
 
-export default Timer;
+export default QuizTimer;

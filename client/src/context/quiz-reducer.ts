@@ -24,6 +24,24 @@ export const manageState = (
         currentQuiz: action.value.quiz,
         category: action.value.category,
       };
+    case "IS_OPTION_CLICKED":
+      return {
+        ...state,
+        isOptionClicked: action.payload.value,
+      };
+    case "SET_SELECTED_OPTION":
+      return { ...state, selectedOption: action.payload.value };
+    case "OPTION_CLICKED":
+      return {
+        ...state,
+        isOptionClicked: action.payload.value,
+        selectedOption: action.payload.option,
+      };
+    case "SET_OPTION_COLOR":
+      return {
+        ...state,
+        optionsColor: action.payload.value,
+      };
     case "NEXT_QUESTION":
       return {
         ...state,
@@ -33,6 +51,7 @@ export const manageState = (
           action.value.selectedOption
         ),
         currentQuesNumber: state.currentQuesNumber + 1,
+        optionsColor: "",
       };
     case "WRONG_ANSWER":
       return {

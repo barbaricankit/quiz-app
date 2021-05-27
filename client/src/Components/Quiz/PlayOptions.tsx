@@ -1,12 +1,15 @@
-import { Button } from "@chakra-ui/button";
 import { useColorModeValue } from "@chakra-ui/color-mode";
 import { Flex } from "@chakra-ui/layout";
 import axios from "axios";
 import { useEffect } from "react";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useQuiz } from "../../context/quiz-context";
 import { Quiz } from "../../database/data.type";
-
+import PlayAlone from "./Buttons/PlayAlone";
+import PlayWithFriends from "./Buttons/PlayWithFriends";
+import dotenv from "dotenv";
+dotenv.config();
+const url = process.env.REACT_APP_URL;
 export type ParamType = {
   category: string;
 };
@@ -20,8 +23,8 @@ const PlayOptions = () => {
     quizstate: { currentQuiz },
     quizdispatch,
   } = useQuiz();
-  const history = useHistory();
-  const bg = useColorModeValue(
+
+  const bg: string = useColorModeValue(
     "linear-gradient(to right, #61e294, #0575e6)",
     "linear-gradient(to right, #005c97, #363795)"
   );
@@ -30,7 +33,7 @@ const PlayOptions = () => {
       (async () => {
         try {
           const { data } = await axios.get<Network_Data_Type>(
-            `https://cricquizapp-server.herokuapp.com/quiz/${category}`
+            `${url}quiz/${category}`
           );
           if (data.success) {
             quizdispatch({
@@ -46,15 +49,8 @@ const PlayOptions = () => {
   }, [category, quizdispatch, currentQuiz]);
   return (
     <Flex justifyContent='space-evenly' w='100%'>
-      <Button bgGradient={bg} onClick={() => history.push(`/${category}/play`)}>
-        Play Alone
-      </Button>
-      {/* Please ignore the below comment it is for multiplayer and it is in progress */}
-      {/* <Button
-        bgGradient={bg}
-        onClick={() => history.push(`/${category}/rooms`)}>
-        Play with Friends
-      </Button> */}
+      <PlayAlone bg={bg} />
+      <PlayWithFriends bg={bg} />
     </Flex>
   );
 };

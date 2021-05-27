@@ -5,11 +5,12 @@ import Login from "./Components/Login/Login";
 import { Route } from "react-router";
 import Category from "./Components/Category/Category";
 import Rules from "./Components/Quiz/Rules";
-import PlayQuiz from "./Components/Quiz/PlayQuiz";
-import FinalScore from "./Components/Quiz/FinalScore";
-// import Multiplayer from "./Components/Multiplayer/MultiplayerRoom";
-// import WaitingRoom from "./Components/Multiplayer/WaitingRoom";
+import Multiplayer from "./Components/Multiplayer/MultiplayerRoom";
+import WaitingRoom from "./Components/Multiplayer/WaitingRoom";
 import Header from "./Components/Header/Header";
+import QuizPage from "./Components/Quiz/QuizPage";
+import MultiplayerFinalScore from "./Components/Multiplayer/MultiplayerFinalScore";
+import SinglePlayerFinalScore from "./Components/SinglePlayer/SinglePlayerFinalScore";
 
 export const App = () => {
   const bg = useColorModeValue(
@@ -25,10 +26,14 @@ export const App = () => {
           <Route exact path='/' component={Login} />
           <Route path='/categories' component={Category} />
           <Route path='/:category/rules' component={Rules} />
-          {/* <Route path='/:category/rooms' component={Multiplayer} /> */}
-          <Route path='/:category/play' component={PlayQuiz} />
-          <Route path='/finalscore' component={FinalScore} />
-          {/* <Route path='/:category/roomarea' component={WaitingRoom} /> */}
+          <Route path='/:category/rooms' component={Multiplayer} />
+          <Route path='/:category/play' component={QuizPage} />
+          <Route path='/finalscore' component={SinglePlayerFinalScore} />
+          <Route path='/:category/roomarea' component={WaitingRoom} />
+          <Route
+            path='/multiplayer/finalscore'
+            component={MultiplayerFinalScore}
+          />
         </VStack>
       </Grid>
     </Box>

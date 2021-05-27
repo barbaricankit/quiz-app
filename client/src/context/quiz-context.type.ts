@@ -3,7 +3,6 @@ import { Option, Quiz } from "../database/data.type";
 
 export type VALUE_TYPE = {
   question: Quiz;
-
   selectedOption: Option | null;
 };
 export type ACTION_TYPE =
@@ -17,7 +16,14 @@ export type ACTION_TYPE =
   | { type: "SET_USERNAME"; value: { userName: string } }
   | { type: "SKIP_QUESTION" }
   | { type: "SET_QUIZ"; value: { quiz: Quiz[]; category: string[] } }
-  | { type: "SET_CURRENT_QUIZ"; value: { quiz: Quiz[]; category: string } };
+  | { type: "SET_CURRENT_QUIZ"; value: { quiz: Quiz[]; category: string } }
+  | { type: "IS_OPTION_CLICKED"; payload: { value: boolean } }
+  | { type: "SET_SELECTED_OPTION"; payload: { value: Option | null } }
+  | {
+      type: "OPTION_CLICKED";
+      payload: { value: boolean; option: Option | null };
+    }
+  | { type: "SET_OPTION_COLOR"; payload: { value: string } };
 
 export type QuizState = {
   score: number;
@@ -27,6 +33,9 @@ export type QuizState = {
   username: string;
   quizzes?: Quiz[];
   categories?: string[];
+  selectedOption: Option | null;
+  isOptionClicked: boolean;
+  optionsColor: string;
 };
 export type QuizContType = {
   quizstate: QuizState;

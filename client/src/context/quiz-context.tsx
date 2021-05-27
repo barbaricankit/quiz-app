@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { getQuizData } from "../database/data";
 import { QuizContType, QuizState } from "./quiz-context.type";
 import { manageState } from "./quiz-reducer";
@@ -6,6 +6,9 @@ export const initialStateValue: QuizState = {
   score: 0,
   currentQuesNumber: 1,
   username: "",
+  selectedOption: null,
+  isOptionClicked: false,
+  optionsColor: "",
 };
 export const QuizContext = createContext({});
 
