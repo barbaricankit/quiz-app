@@ -1,23 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const { Quiz: QuizDB } = require("../models/quiz.model");
-const {
-  QuizCategory: quizCategoryDB,
-} = require("../models/quiz.category.model");
-router.route("/category").post(async (req: any, res: any) => {
-  const category = req.body;
-  const newcategory = new quizCategoryDB(category);
-  await newcategory.save();
-  res.json({ success: true, category: newcategory });
-});
+const { QuizCategory } = require("../models/quiz.category.model");
 router
   .route("/quiz")
-  .get(async (req: any, res: any) => {
-    const categories = await quizCategoryDB.findOne();
+  .get(async (req: typeof express.Request, res: typeof express.Response) => {
+    const categories = await QuizCategory.findOne();
     const getQuiz = await QuizDB.find();
     res.json({ success: true, quiz: getQuiz, categories });
   })
-  .post(async (req: any, res: any) => {
+  .post(async (req: typeof express.Request, res: typeof express.Response) => {
     const data = req.body;
 
     const quiz = new QuizDB(data);
@@ -25,17 +17,19 @@ router
     res.json({ success: true, quiz });
   });
 
-router.route("/quiz/:category").get(async (req: any, res: any) => {
-  const { category } = req.params;
-  const getQuizByCategory = await QuizDB.find({ category });
-  if (getQuizByCategory.length > 0) {
-    res.json({ success: true, quiz: getQuizByCategory });
-  } else {
-    res.json({
-      success: false,
-      message: "There are no quiz for this category",
-    });
-  }
-});
+router
+  .route("/quiz/:category")
+  .get(async (req: typeof express.Request, res: typeof express.Response) => {
+    const { category } = req.params;
+    const getQuizByCategory = await QuizDB.find({ category });
+    if (getQuizByCategory.length > 0) {
+      res.json({ success: true, quiz: getQuizByCategory });
+    } else {
+      res.json({
+        success: false,
+        message: "There are no quiz for this category",
+      });
+    }
+  });
 
 module.exports = { router };
