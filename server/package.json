@@ -1,29 +1,31 @@
 {
-  "name": "quiz_socket",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "prestart": "tsc",
-    "start": "nodemon tsc ./src/index.js"
-  },
-  "author": "Ankit",
-  "license": "ISC",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^9.0.2",
-    "express": "^4.17.1",
-    "mongoose": "^5.12.10",
-    "socket.io": "^4.1.2"
-  },
-  "devDependencies": {
-    "@types/cors": "^2.8.10",
-    "@types/dotenv": "^8.2.0",
-    "@types/express": "^4.17.11",
-    "@types/mongoose": "^5.10.5",
-    "@types/socket.io": "^3.0.2",
-    "nodemon": "^2.0.7"
-  },
-  "engines": {
-    "node": "14.x"
-  }
+	"name": "quiz_socket",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"prestart": "tsc",
+		"start": "nodemon ./src/index.js"
+	},
+	"author": "Ankit",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "^5.0.1",
+		"cors": "^2.8.5",
+		"dotenv": "^9.0.2",
+		"express": "^4.17.1",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^5.12.10",
+		"socket.io": "^4.1.2"
+	},
+	"devDependencies": {
+		"@types/cors": "^2.8.10",
+		"@types/dotenv": "^8.2.0",
+		"@types/express": "^4.17.11",
+		"@types/mongoose": "^5.10.5",
+		"@types/socket.io": "^3.0.2",
+		"nodemon": "^2.0.7"
+	},
+	"engines": {
+		"node": "14.x"
+	}
 }
