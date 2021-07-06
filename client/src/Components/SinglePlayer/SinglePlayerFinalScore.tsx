@@ -1,8 +1,5 @@
-import { useColorModeValue } from "@chakra-ui/color-mode";
-import { Flex, Text } from "@chakra-ui/layout";
-import { useQuiz } from "../../context/quiz-context";
-import AnotherCategory from "../Quiz/Buttons/AnotherCategory";
-import PlayAgain from "../Quiz/Buttons/PlayAgain";
+import { useColorModeValue, useQuiz, AnotherCategory, PlayAgain, Flex, Text } from ".";
+
 const SinglePlayerFinalScore = () => {
   const {
     quizState: { score },

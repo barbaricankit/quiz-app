@@ -1,6 +1,5 @@
-import { Text } from "@chakra-ui/layout";
-import { useQuiz } from "../../context/quiz-context";
-import { Quiz_Type } from "../../database/data.type";
+import { Text,useQuiz } from ".";
+import { Quiz_Type } from "../../database/servercalls.type";
 
 type Questions_Prop_Type = {
   currentQuestion: Quiz_Type;

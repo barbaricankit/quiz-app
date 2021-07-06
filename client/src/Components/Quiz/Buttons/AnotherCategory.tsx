@@ -1,23 +1,22 @@
-import { Button } from "@chakra-ui/button";
-import { useHistory } from "react-router";
-import { useQuiz } from "../../../context/quiz-context";
+import { Button, useQuiz, useHistory } from '.';
+
 export type Another_Category_Prop_Type = {
-  bg: string;
+	bg: string;
 };
 
 const AnotherCategory = ({ bg }: Another_Category_Prop_Type) => {
-  const { quizDispatch } = useQuiz();
-  const history = useHistory();
-  return (
-    <Button
-      bgGradient={bg}
-      onClick={() => {
-        quizDispatch({ type: "RESET" });
-        history.push("/categories");
-      }}>
-      Another Category
-    </Button>
-  );
+	const { quizDispatch } = useQuiz();
+	const history = useHistory();
+	return (
+		<Button
+			bgGradient={bg}
+			onClick={() => {
+				quizDispatch({ type: 'RESET' });
+				history.push('/');
+			}}>
+			Another Category
+		</Button>
+	);
 };
 
 export default AnotherCategory;

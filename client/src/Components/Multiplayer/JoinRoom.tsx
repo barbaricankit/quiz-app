@@ -1,11 +1,6 @@
-import { useState } from "react";
-import { Stack, Text, VStack } from "@chakra-ui/layout";
-import { Input } from "@chakra-ui/input";
-import { Button } from "@chakra-ui/button";
-import { useHistory, useParams } from "react-router";
-import { useQuiz } from "../../context/quiz-context";
-import { useSocket } from "../../context/socket-context";
+import { Stack, Text, VStack, Button, useState, Input, useHistory, useParams,  useAuth, useSocket } from ".";
 import { Param_Type } from "../Quiz/PlayOptions";
+
 
 type Room_Info_Type = {
   success: boolean;
@@ -13,11 +8,8 @@ type Room_Info_Type = {
 };
 const JoinRoom = () => {
   const [roomInfo, setRoomInfo] = useState<Room_Info_Type | null>(null);
-
   const { category } = useParams<Param_Type>();
-  const {
-    quizState: { username },
-  } = useQuiz();
+  const { authState: { username } } = useAuth();
   const history = useHistory();
   const { websocket, setRoomId, roomId } = useSocket();
   const handleJoinRoom = () => {

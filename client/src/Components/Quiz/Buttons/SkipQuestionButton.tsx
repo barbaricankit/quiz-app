@@ -1,40 +1,31 @@
-import { Button } from "@chakra-ui/button";
-import { useColorModeValue } from "@chakra-ui/color-mode";
-import { VStack } from "@chakra-ui/layout";
-import { useQuiz } from "../../../context/quiz-context";
+import { Button, useQuiz, useColorModeValue, VStack } from '.';
 
 const SkipQuestionButton = () => {
-  const {
-    quizState: { currentQuesNumber },
-    quizDispatch,
-  } = useQuiz();
-  const skipButtonBg = useColorModeValue(
-    "linear-gradient(to right, #1c92d2, #f2fcfe)",
-    "linear-gradient(to right, #005c97, #363795)"
-  );
-  const skipQuestion = () => {
-    quizDispatch({
-      type: "SET_OPTION_COLOR",
-      payload: { value: "green.500" },
-    });
-    setTimeout(() => {
-      quizDispatch({
-        type: "SKIP_QUESTION",
-      });
-    }, 2000);
-  };
-  return (
-    <VStack>
-      <Button
-        key={currentQuesNumber}
-        bgGradient={skipButtonBg}
-        onClick={() => skipQuestion()}
-        m={5}
-        alignSelf='flex-end'>
-        Skip Question
-      </Button>
-    </VStack>
-  );
+	const { quizState: { currentQuesNumber }, quizDispatch } = useQuiz();
+
+	const skipButtonBg = useColorModeValue('#668E3E', '#155A7A');
+	const skipQuestion = () => {
+		quizDispatch({
+			type: 'SET_OPTION_COLOR',
+			payload: { value: 'green.500' }
+		});
+		quizDispatch({
+			type: 'OPTION_CLICKED',
+			payload: { value: true, option: null }
+		});
+		setTimeout(() => {
+			quizDispatch({
+				type: 'SKIP_QUESTION'
+			});
+		}, 2000);
+	};
+	return (
+		<VStack>
+			<Button key={currentQuesNumber} bg={skipButtonBg} onClick={() => skipQuestion()} m={5} alignSelf='flex-end'>
+				Skip Question
+			</Button>
+		</VStack>
+	);
 };
 
 export default SkipQuestionButton;

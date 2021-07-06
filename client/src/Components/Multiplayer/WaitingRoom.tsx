@@ -1,34 +1,33 @@
-import { Text, VStack } from "@chakra-ui/layout";
-import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
-import { useSocket } from "../../context/socket-context";
-import { Button } from "@chakra-ui/button";
+import { 
+	HStack,
+  OtherMembers,
+	CopyToClipboard,
+	FaCopy,
+	Text,
+  Box,
+	VStack,
+	Button,
+	useEffect,
+	useState,
+	useHistory,
+	useParams,
+	useSocket,Host
+	} from ".";
 import { Param_Type } from "../Quiz/PlayOptions";
+import {Member_Type,User_Type,Host_Type} from "./multiplayer.types"
 
-type Member_Type = {
-  users: User_Type[];
-  host: Host_Type;
 
-  roomId: string;
-};
-type User_Type = {
-  userName: string;
-  userId: string;
-};
-type Host_Type = {
-  hostId: string;
-  hostName: string;
-};
+
 const WaitingRoom = () => {
   const { category } = useParams<Param_Type>();
   const history = useHistory();
   const [members, setMembers] = useState<Array<User_Type>>([]);
   const [host, setHost] = useState<Host_Type>();
-
-  const { websocket, userId, roomId } = useSocket();
+  const { websocket, userId, roomId, setRoomId } = useSocket();
 
   const startGame = () => {
     websocket.emit("start the game", {});
+    setRoomId("");
   };
   websocket.on(`let's play`, () => {
     history.push({
@@ -50,12 +49,19 @@ const WaitingRoom = () => {
 
   return (
     <VStack>
-      <Text>Room Id : {roomId}</Text>
-      <Text mb={2}>{host?.hostName}</Text>
+      <CopyToClipboard text={roomId}>
+        <HStack m={3}>
+          <Text>Room Id : {roomId}</Text>
+          <FaCopy className='copy-btn' />
+        </HStack>
+      </CopyToClipboard>
+
+      {host && <Host host={host}/>}
+
       {members?.map((member) => (
-        <VStack key={member.userId}>
-          <Text mb={2}>{member.userName}</Text>
-        </VStack>
+        <Box key={member.userId}>
+          <OtherMembers member={member}/>
+        </Box>
       ))}
       {userId === host?.hostId && (
         <Button onClick={() => startGame()}>Start Game</Button>

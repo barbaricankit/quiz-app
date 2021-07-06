@@ -1,12 +1,17 @@
-import { useColorModeValue } from "@chakra-ui/color-mode";
-import { Flex, Heading, Text } from "@chakra-ui/layout";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
-import { useQuiz } from "../../context/quiz-context";
-import { useSocket } from "../../context/socket-context";
-import AnotherCategory from "../Quiz/Buttons/AnotherCategory";
-import PlayAgain from "../Quiz/Buttons/PlayAgain";
+import { AnotherCategory,
+	PlayAgain,
+	useLocation,
+	useColorModeValue,
+  Box,
+	Flex,
+	Heading,
+	Text,
+	useEffect,
+	useState,
+	useSocket,
+	useQuiz } from ".";
 import { Location_Type } from "../Quiz/QuizPage";
+
 type Host_Type = {
   hostId: string;
   hostName: string;
@@ -47,7 +52,7 @@ const MultiplayerFinalScore = () => {
     setUserInfo([...users]);
   });
   return (
-    <>
+    <Box>
       <Heading fontSize='5xl' fontStyle='italic' fontWeight='bold'>
         Scores :
       </Heading>
@@ -75,7 +80,7 @@ const MultiplayerFinalScore = () => {
         <PlayAgain bg={bg} />
         <AnotherCategory bg={bg} />
       </Flex>
-    </>
+    </Box>
   );
 };
 
