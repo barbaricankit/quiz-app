@@ -8,11 +8,11 @@ export type PrivateRoute_Prop_Type = {
 const PrivateRoute = ({ path, ...props }: PrivateRoute_Prop_Type) => {
 	const { authState: { token }, authDispatch: dispatch } = useAuth();
 	const history = useHistory();
-	const savedToken = JSON.parse(localStorage?.getItem('token') || 'null');
+	const savedToken = JSON.parse(localStorage?.getItem('token') || '{}');
 	setupAuthHeader(savedToken);
 
 	(async () => {
-		console.log(savedToken);
+	
 		if (savedToken && !token) {
 			const { username, token } = await verifyToken();
 			if (username) {

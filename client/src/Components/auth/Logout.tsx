@@ -1,6 +1,6 @@
 import { Button, useAuth, useHistory } from '.';
 
-const Logout = () => {
+const Logout = ({ bg }: any) => {
 	const { authDispatch: dispatch } = useAuth();
 	const history = useHistory();
 	const logoutUser = () => {
@@ -9,7 +9,7 @@ const Logout = () => {
 		history.push('/login');
 	};
 	return (
-		<Button m={2} onClick={() => logoutUser()}>
+		<Button bg={bg} m={2} onClick={() => logoutUser()}>
 			Logout
 		</Button>
 	);
