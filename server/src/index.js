@@ -28,8 +28,8 @@ app.use('/user', userRouter);
 app.get('/', (req, res) => {
     res.json({ success: true, message: 'Socket is created' });
 });
-server.listen(process.env.PORT || 3001, () => {
-    console.log('Server started at PORT', process.env.PORT || 3001);
+server.listen(process.env.PORT || 4001, () => {
+    console.log('Server started at PORT', process.env.PORT || 4001);
 });
 io.on('connection', (socket) => {
     socket.emit('user id', { userId: socket.id });

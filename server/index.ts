@@ -29,12 +29,13 @@ app.use('/user', userRouter);
 app.get('/', (req: any, res: any) => {
 	res.json({ success: true, message: 'Socket is created' });
 });
-server.listen(process.env.PORT || 3001, () => {
-	console.log('Server started at PORT', process.env.PORT || 3001);
+server.listen(process.env.PORT || 4001, () => {
+	console.log('Server started at PORT', process.env.PORT || 4001);
 });
 
 io.on('connection', (socket: any) => {
 	socket.emit('user id', { userId: socket.id });
+	
 	socket.on('create room data', async (data: Create_Room_Data_type) => {
 		const { roomId, category, host } = data;
 		const roomInfo = new Rooms({
@@ -42,7 +43,6 @@ io.on('connection', (socket: any) => {
 			category,
 			host: { hostId: socket.id, hostName: host.hostName }
 		});
-
 		await roomInfo.save();
 	});
 	socket.on('join room', async (data: Join_Room_Data_type) => {
@@ -96,8 +96,10 @@ io.on('connection', (socket: any) => {
 	socket.on('score updates', async (data: Score_Update_Type) => {
 		const { userId, score, roomId } = data;
 		const room = await Rooms.findOne({ roomId });
+
 		if (room.host.hostId === userId) {
 			room.host.score = score;
+
 			await room.save();
 		} else {
 			room.users.forEach((user: User_Type) => {
