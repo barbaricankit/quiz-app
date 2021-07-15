@@ -8,8 +8,8 @@ import {
 import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
-//const url = process.env.REACT_APP_URL as string;
-const url = 'http://localhost:4001/';
+const url = process.env.REACT_APP_URL as string;
+
 export const getQuizData = async (): Promise<Get_Quiz_Data_Type | Server_Error_Type | []> => {
 	try {
 		const { data: { success, quiz, categories: { category } } } = await axios.get<Network_Data_Type>(`${url}quiz`);
