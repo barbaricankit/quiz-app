@@ -18,25 +18,18 @@ const SinglePlayerFinalScore = () => {
   )
 
   const checkScore = () => {
-    if (score >= 13) {
-      return (
-        <Text fontSize="5xl" fontStyle="italic" fontWeight="bold">
-          🏆 You scored : {score} out of 15
-        </Text>
-      )
-    } else if (score < 13 && score >= 7) {
-      ;<Text fontSize="5xl" fontStyle="italic" fontWeight="bold">
-        😃 You scored : {score} out of 15
-      </Text>
-    } else if (score < 7) {
-      ;<Text fontSize="5xl" fontStyle="italic" fontWeight="bold">
-        😑 You scored : {score} out of 15
-      </Text>
+    if (score >= 13) return `🏆 You scored : ${score} out of 15`
+    else if (score < 13 && score >= 7)
+      return `😃 You scored : ${score} out of 15`
+    else if (score < 7) {
+      return `😑 You scored : ${score} out of 15`
     }
   }
   return (
     <>
-      {checkScore()}
+      <Text fontSize="5xl" fontStyle="italic" fontWeight="bold">
+        {checkScore()}
+      </Text>
       <Flex
         m="auto"
         w={['50%', '70%', '50%']}
