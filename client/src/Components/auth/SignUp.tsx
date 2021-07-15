@@ -12,6 +12,7 @@ import {
   signUp,
   useAuth,
   useHistory,
+  setupAuthHeader,
 } from '.'
 
 const SignUp = () => {
@@ -26,6 +27,7 @@ const SignUp = () => {
   const loginHandler = async () => {
     const data = await signUp({ username, password })
     if (data.token) {
+      setupAuthHeader(data.token)
       dispatch({ type: 'SET_TOKEN', payload: { token: data.token } })
       dispatch({ type: 'SET_USERNAME', payload: { username: data.username } })
       history.push('/')

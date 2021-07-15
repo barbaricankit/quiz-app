@@ -1,4 +1,13 @@
-import { Button, useColorModeValue, Flex, Spinner, Link, useQuiz } from '.'
+import {
+  Button,
+  useColorModeValue,
+  useEffect,
+  Flex,
+  Spinner,
+  Link,
+  useQuiz,
+  getQuizData,
+} from '.'
 
 const Category = () => {
   const {
@@ -9,6 +18,18 @@ const Category = () => {
     'linear-gradient(to right, #61e294, #0575e6)',
     'linear-gradient(to right, #005c97, #363795)',
   )
+  useEffect(() => {
+    ;(async () => {
+      const data = await getQuizData()
+      if ('quiz' in data) {
+        quizDispatch({
+          type: 'SET_QUIZ',
+          payload: { quiz: data.quiz, category: data.category },
+        })
+      }
+    })()
+    //eslint-disable-next-line
+  }, [])
   return (
     <Flex direction="column" alignContent="space-between">
       {!categories && <Spinner />}

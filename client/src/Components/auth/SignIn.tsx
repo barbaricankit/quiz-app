@@ -11,6 +11,7 @@ import {
   signIn,
   useAuth,
   useHistory,
+  setupAuthHeader,
 } from '.'
 
 import './login.css'
@@ -25,6 +26,7 @@ const SignIn = () => {
   const loginHandler = async () => {
     const data = await signIn({ username, password })
     if (data.token) {
+      setupAuthHeader(data.token)
       dispatch({ type: 'SET_TOKEN', payload: { token: data.token } })
       dispatch({ type: 'SET_USERNAME', payload: { username: data.username } })
       history.push('/')

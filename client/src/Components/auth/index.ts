@@ -6,6 +6,7 @@ import { Username, Password, ReEnterPassword } from './input';
 import { useAuth, signUp, signIn } from '..';
 import { useHistory } from 'react-router';
 import Logout from './Logout';
+import { setupAuthHeader } from '../private'
 
 export {
 	Box,
@@ -21,6 +22,6 @@ export {
 	signUp,
 	signIn,
 	useAuth,
-	useHistory,
+	useHistory,setupAuthHeader,
 	Logout
 };

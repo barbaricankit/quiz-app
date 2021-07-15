@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  getQuizData,
-  manageState,
-} from '.'
+import { createContext, useContext, useReducer, manageState } from '.'
 import {
   Quiz_Context_Type,
   Quiz_State_Type,
@@ -25,17 +18,6 @@ export const QuizContext = createContext({})
 export const QuizProvider = ({ children }: Quiz_Provider_Prop_Type) => {
   const [state, dispatch] = useReducer(manageState, initialStateValue)
 
-  useEffect(() => {
-    ;(async () => {
-      const data = await getQuizData()
-      if ('quiz' in data) {
-        dispatch({
-          type: 'SET_QUIZ',
-          payload: { quiz: data.quiz, category: data.category },
-        })
-      }
-    })()
-  }, [])
   return (
     <QuizContext.Provider value={{ quizState: state, quizDispatch: dispatch }}>
       {children}
