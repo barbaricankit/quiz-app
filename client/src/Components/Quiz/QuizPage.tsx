@@ -21,7 +21,7 @@ export type Location_Type = {
 };
 const QuizPage = () => {
 	const { quizState: { currentQuesNumber, currentQuiz, score }, quizDispatch } = useQuiz();
-	const { websocket, userId, roomId } = useSocket();
+	const { socketState: {websocket, roomId, userId}, } = useSocket();
 	const history = useHistory();
 	const location = useLocation<Location_Type>();
 	const player = location.state?.player;

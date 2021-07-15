@@ -1,57 +1,76 @@
-import { Stack, Text, VStack, Button, useState, Input, useHistory, useParams,  useAuth, useSocket } from ".";
-import { Param_Type } from "../Quiz/PlayOptions";
-
+import {
+  Stack,
+  Text,
+  VStack,
+  Button,
+  useState,
+  Input,
+  useHistory,
+  useParams,
+  useAuth,
+  useSocket,
+} from '.'
+import { Param_Type } from '../Quiz/PlayOptions'
 
 type Room_Info_Type = {
-  success: boolean;
-  message: string;
-};
+  success: boolean
+  message: string
+}
 const JoinRoom = () => {
-  const [roomInfo, setRoomInfo] = useState<Room_Info_Type | null>(null);
-  const { category } = useParams<Param_Type>();
-  const { authState: { username } } = useAuth();
-  const history = useHistory();
-  const { websocket, setRoomId, roomId } = useSocket();
+  const [roomInfo, setRoomInfo] = useState<Room_Info_Type | null>(null)
+  const { category } = useParams<Param_Type>()
+  const {
+    authState: { username },
+  } = useAuth()
+  const history = useHistory()
+  const {
+    socketState: { websocket, roomId },
+    socketDispatch: dispatch,
+  } = useSocket()
   const handleJoinRoom = () => {
+    console.log({ roomId })
     if (roomId) {
-      websocket.emit("join room", {
+      websocket.emit('join room', {
         roomId,
         category,
         users: { userName: username },
-      });
-      websocket.on("room found", (data: any) => {
+      })
+      websocket.on('room found', (data: any) => {
         if (data.success) {
           history.push({
             pathname: `/${category}/roomarea`,
-          });
+          })
         } else {
-          setRoomInfo(data);
+          setRoomInfo(data)
         }
-      });
+      })
     }
-  };
+  }
   return (
     <VStack>
       <Input
-        type='text'
-        placeholder='Enter Room Id'
+        type="text"
+        placeholder="Enter Room Id"
         value={roomId}
-        onChange={(e) => setRoomId(e.target.value)}
+        onChange={(e) =>
+          dispatch({ type: 'SET_ROOM_ID', payload: { roomId: e.target.value } })
+        }
       />
       <Button
         disabled={roomId ? false : true}
         onClick={() => {
-          handleJoinRoom();
-        }}>
+          handleJoinRoom()
+        }}
+      >
         Join Room
       </Button>
       {roomInfo?.success === false && (
         <Stack>
-          <Text>{roomInfo.message}</Text>{" "}
+          <Text>{roomInfo.message}</Text>{' '}
         </Stack>
       )}
     </VStack>
-  );
-};
+  )
+}
 
-export default JoinRoom;
+export default JoinRoom

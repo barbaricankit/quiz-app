@@ -7,7 +7,8 @@ export const manageState = (state: typeof initialStateValue, action: Action_Type
 			return {
 				...state,
 				currentQuesNumber: state.currentQuesNumber + 1,
-				optionsColor: ''
+				optionsColor: '',
+				isOptionClicked:false
 			};
 		case 'SET_QUIZ':
 			return {
@@ -37,7 +38,8 @@ export const manageState = (state: typeof initialStateValue, action: Action_Type
 				...state,
 				score: calculateScore(state.score, action.payload.question, action.payload.selectedOption),
 				currentQuesNumber: state.currentQuesNumber + 1,
-				optionsColor: ''
+				optionsColor: '',
+				isOptionClicked:false
 			};
 		case 'RESET':
 			return { ...state, score: 0, currentQuesNumber: 1 };

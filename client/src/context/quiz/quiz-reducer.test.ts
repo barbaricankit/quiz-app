@@ -450,7 +450,7 @@ test('move to the next question and update the score', () => {
 		currentQuesNumber: 4,
 		username: '',
 		selectedOption: null,
-		isOptionClicked: false,
+		isOptionClicked: true,
 		optionsColor: 'Green'
 	};
 	const action_type: Action_Type = {

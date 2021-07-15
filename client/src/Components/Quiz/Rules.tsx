@@ -10,8 +10,8 @@ const Rules = () => {
 			</VStack>
 			<VStack>
 				<UnorderedList>
-					{rules.map((rule) => (
-						<ListItem fontSize='md' textAlign='left'>
+					{rules.map((rule,index) => (
+						<ListItem fontSize='md' textAlign='left' key={index}>
 							{rule}
 						</ListItem>
 					))}
