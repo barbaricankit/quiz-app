@@ -20,3 +20,13 @@ This quiz app contains quizzes for different category of Cricket
 - There is no negative points for the non bonus questions.
 - If you skip the question there will be no negative points.
 - The quiz is of total 15 points. Let's see how much you can score.
+
+
+Mobile Dark and Light Mode View
+
+![alt text](https://res.cloudinary.com/ankitneog/image/upload/v1627051388/Mobile_Dark_View_moh3vs.png)
+![alt text](https://res.cloudinary.com/ankitneog/image/upload/v1627051388/MobileLight_View_gznfqb.png)
+
+Desktop Rules page
+
+![alt text](https://res.cloudinary.com/ankitneog/image/upload/v1627051391/Desktop_Rules_page_lr6g3g.png)
